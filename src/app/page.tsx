@@ -1,101 +1,91 @@
-import Image from "next/image";
+"use client"
+
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  return (
+    <div className="flex flex-col md:flex-row h-screen ">
+      {/* Left Panel */}
+      <div className="md:w-1/2 h-1/2 md:h-full text-white p-4 sm:p-6 lg:p-10 flex flex-col justify-center" style={{background:"#167177"}}>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-8">Welcome!</h1>
+        <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-2 lg:mb-6">Key Advantages:</h2>
+        <ul className="space-y-1 sm:space-y-2 lg:space-y-4 text-sm sm:text-base lg:text-md">
+          {[
+            'Complaint facts panels for food, beverages and dietary supplements under 21 CFR part 101',
+            'Common or usual name and latin binomial ingredient lookup.',
+            'Rules based adherence to rounding, declarations, content claims, warnings, allergens, etc.',
+            'Proactive regulatory suggestions and/or considerations',
+            'Multi-format, single or multi-DV, single or multi-serving, print-ready, editable artwork files.',
+            'User-friendly, intuitive, single user or team management solutions.'
+          ].map((advantage, index) => (
+            <li key={index} className="flex items-center">
+              <span className="mr-2 text-base sm:text-lg lg:text-xl">✦</span> {advantage}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Right Panel */}
+      <div className="md:w-1/2 h-1/2 md:h-full bg-white flex items-center justify-center p-4 sm:p-6 lg:p-10">
+        <div className="w-full max-w-xs sm:max-w-sm lg:max-w-md">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 text-black">Welcome Back! 👋</h1>
+          <p className="text-xs sm:text-sm lg:text-base mb-4 lg:mb-6 text-black">Sign in to access the dashboard.</p>
+          <form>
+            <div className="mb-3 lg:mb-4">
+              <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700">Email ID</label>
+              <input
+                type="email"
+                id="email"
+                className="mt-1 block w-full px-2 py-1 sm:px-3 sm:py-2 text-xs sm:text-sm bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-black"
+                placeholder="Enter your email"
+              />
+            </div>
+            <div className="mb-3 lg:mb-4">
+              <label htmlFor="password" className="block text-xs sm:text-sm font-medium text-gray-700">Password</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  className="mt-1 block w-full px-2 pr-2 py-1 sm:px-3 sm:py-2 text-xs sm:text-sm bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-black"
+                  placeholder="Enter your password"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-3 pl-2 flex items-center"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4 text-gray-400" />
+                  ) : (
+                    <Eye className="h-4 w-4 text-gray-400" />
+                  )}
+                </button>
+              </div>
+            </div>
+            <div className="text-right mb-3 lg:mb-4">
+              <a href="#" className="text-xs sm:text-sm text-teal-600 hover:underline font-bold" style={{color:"#167177"}}>Forget Password?</a>
+            </div>
+            <button
+              type="submit"
+              className="w-full py-1 sm:py-2 px-2 sm:px-4 border border-transparent rounded-md shadow-sm text-xs sm:text-sm font-medium text-white hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500" style={{background:"#167177"}}
+            >
+              Log in
+            </button>
+          </form>
+          <p className="mt-3 lg:mt-4 text-center text-xs sm:text-sm text-black">
+            Don't have an account yet?{' '}
+            <a href="#" className="text-teal-600 hover:underline font-bold" style={{color:"#167177"}}>Register Now</a>
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
